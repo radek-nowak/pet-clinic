@@ -17,15 +17,24 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> 
     }
 
     public <S extends T> S save(S entity) {
-        Optional<S> optionalS= Optional.ofNullable(entity);
-        if (optionalS.isEmpty()) {
-            throw new RuntimeException("ERROR: Object can not be null!");
-        }
-        map.put(optionalS.get().getId(), entity);
-        return optionalS.get();
+        Optional<S> optionalS = Optional.ofNullable(entity);
+        entity = optionalS.orElseThrow(() -> new RuntimeException("ERROR: Object can not be null."));
+        entity.setId(nextIndex());
+        map.put(entity.getId(), entity);
+        return entity;
     }
 
     public void deleteById(ID id) {
         map.remove(id);
+    }
+
+    private Long nextIndex() {
+        Long nextIndex;
+        try {
+            nextIndex = Collections.max(map.keySet()) + 1;
+        } catch (NoSuchElementException e) {
+            nextIndex = 1L;
+        }
+        return nextIndex;
     }
 }
