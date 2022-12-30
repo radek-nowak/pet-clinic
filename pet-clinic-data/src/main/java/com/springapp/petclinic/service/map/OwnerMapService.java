@@ -2,10 +2,12 @@ package com.springapp.petclinic.service.map;
 
 import com.springapp.petclinic.model.Owner;
 import com.springapp.petclinic.service.OwnerService;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.Set;
 
+@Service
 public class OwnerMapService extends AbstractMapService<Owner, Long> implements OwnerService {
 
     @Override
