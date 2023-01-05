@@ -1,10 +1,11 @@
 package com.springapp.petclinic.service.map;
 
 import com.springapp.petclinic.model.BaseEntity;
+import com.springapp.petclinic.service.CrudService;
 
 import java.util.*;
 
-public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> {
+public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> implements CrudService<T, ID> {
 
     protected Map<Long, T> map = new HashMap<>();
 
